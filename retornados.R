@@ -3,14 +3,15 @@
 library(tidyverse)
 library(foreign)
 
+#La base de la ECH se descarga en http://ine.gub.uy/web/guest/encuesta-continua-de-hogares1 
 base <- read.spss("HyP_2018_TERCEROS.sav")
 
 base <- as.data.frame(base)
 
 table(base$e37)
-base <- base %>% mutate(oriental=ifelse(e37=="En otro pa韘", 0, 1)) %>%
-  mutate(uruguayo_retornado=ifelse(oriental==1 & e38_1<10 & e39=="En otro pa韘", 1, 0)) %>%
-  mutate(inmigrante=ifelse(oriental==0 & e38_1<10 & e39=="En otro pa韘", 1, 0)) %>%
+base <- base %>% mutate(oriental=ifelse(e37=="En otro pa铆s", 0, 1)) %>%
+  mutate(uruguayo_retornado=ifelse(oriental==1 & e38_1<10 & e39=="En otro pa铆s", 1, 0)) %>%
+  mutate(inmigrante=ifelse(oriental==0 & e38_1<10 & e39=="En otro pa铆s", 1, 0)) %>%
   mutate(e235_2=ifelse(e235_2==0, NA, e235_2))
 
 
@@ -19,7 +20,7 @@ tabla_paises_emisores <- aggregate(pesoano~e235_2+uruguayo_retornado+inmigrante,
   mutate(inmigrante=inmigrante*pesoano)
 
 
-#C骴igos pa韘es
+#C贸digos pa铆ses
 
 codes <- readr::read_csv("https://gist.githubusercontent.com/tadast/8827699/raw/7255fdfbf292c592b75cf5f7a19c16ea59735f74/countries_codes_and_coordinates.csv")
 
@@ -60,8 +61,8 @@ mapa_retornados <- ggplot() +
                                             label=paste0(`Alpha-2 code`, "\n", uruguayo_retornado)), 
              position="identity", show.legend = F, size=2, alpha=.8) +
   labs(title="Uruguayos retornados a Uruguay entre 2008 y 2018",
-       subtitle="Estimaci髇 a partir de Encuesta Continua de Hogares",
-       caption="Fuente: Elaboraci髇 propia en base a ECH-INE 2018 | @danidlsa") +
+       subtitle="Estimaci贸n a partir de Encuesta Continua de Hogares",
+       caption="Fuente: Elaboraci贸n propia en base a ECH-INE 2018 | @danidlsa") +
   theme(text=element_text(family="Segoe UI", color="white"),
         legend.position = "",
         plot.title=element_text(size=16, face="bold"),
@@ -83,8 +84,8 @@ mapa_inmigrantes <- ggplot() +
                                                   label=paste0(`Alpha-2 code`, "\n", inmigrante)), 
                    position="identity", show.legend = F, size=2, alpha=.8) +
   labs(title="Inmigrantes llegados a Uruguay entre 2008 y 2018",
-       subtitle="Estimaci髇 a partir de Encuesta Continua de Hogares",
-       caption="Fuente: Elaboraci髇 propia en base a ECH-INE 2018 | @danidlsa") +
+       subtitle="Estimaci贸n a partir de Encuesta Continua de Hogares",
+       caption="Fuente: Elaboraci贸n propia en base a ECH-INE 2018 | @danidlsa") +
   theme(text=element_text(family="Segoe UI", color="white"),
         legend.position = "",
         plot.title=element_text(size=16, face="bold"),
