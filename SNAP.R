@@ -13,7 +13,6 @@ icons <- awesomeIcons(
   markerColor = ifelse(t$est_avance=="En proceso de ingreso al SNAP", "orange", "green")
 )
 
-pal <- c("orange", "green")
 leaflet(t) %>%
   addTiles() %>%
   addProviderTiles(provider =
