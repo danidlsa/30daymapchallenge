@@ -3,7 +3,7 @@ library(foreign)
 library(leaflet)
 library(htmltools)
 
-t <- read.dbf("c397Polygon.dbf")
+t <- read.dbf("c397Polygon.dbf") #Source: https://www.dinama.gub.uy/geoservicios/ 
 write.csv2(file = "snap.csv", x=t, row.names=F)
 t <-  read.csv2("snap.csv")
 icons <- awesomeIcons(
