@@ -30,8 +30,6 @@ world <- map_data("world") %>%
 exports_by_reporter <- exports_by_reporter %>%
   mutate(reporter_iso=toupper(reporter_iso))
 
-colorRampPalette(c("lightgreen", "darkgreen"))
-
 world <- world %>% left_join(exports_by_reporter, by="reporter_iso")
 ggplot() + 
   geom_polygon(data=world, aes(long, lat, group=group, fill=export_value_usd)) +
