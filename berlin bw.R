@@ -1,8 +1,5 @@
-setwd("C:/Users/Usuario/Dropbox/datos de miércoles/30 map challenge")
-
 library(leaflet)
 library(rgdal)
-#install.packages("mapview")
 library(htmlwidgets)
 library(webshot)
 
